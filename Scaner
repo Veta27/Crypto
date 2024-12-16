@@ -1,0 +1,21 @@
+import socket
+
+def scan_ports(targets, port_range):
+    for target in targets:
+        print(f"Сканирование хоста: {target}")
+        for port in port_range:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(1)  # Установка таймаута в 1 секунду
+            result = sock.connect_ex((target, port))
+            if result == 0:
+                print(f"Порт {port} открыт на {target}")
+            sock.close()
+
+if __name__ == "__main__":
+    # Список IP-адресов для сканирования
+    targets = ["192.168.1.1", "example.com"]
+    
+    # Диапазон портов для сканирования (например, от 1 до 1024)
+    port_range = range(1, 1025)
+
+    scan_ports(targets, port_range)
